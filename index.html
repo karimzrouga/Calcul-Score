@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul Score Concours Spécifiques d’accès aux Etablissements de Formation d’Ingénieurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #scoreCalculatorForm {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        #scoreCalculatorForm label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        #scoreCalculatorForm input[type="number"],
+        #scoreCalculatorForm input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #scoreCalculatorForm button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        #scoreCalculatorForm button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #ffffff;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            position: relative;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        #details {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            width: 300px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Calcul Score Concours Spécifiques d’accès aux Etablissements de Formation
+        d’Ingénieurs</h1>
+    <form id="scoreCalculatorForm">
+        <label for="moyenneAnnee1">Moyenne 1ère année (sur 20) :</label>
+        <input type="number" id="moyenneAnnee1" name="moyenneAnnee1" min="0" max="20" step="0.1" required><br><br>
+
+        <label for="moyenneAnnee2">Moyenne 2ème année (sur 20) :</label>
+        <input type="number" id="moyenneAnnee2" name="moyenneAnnee2" min="0" max="20" step="0.1" required><br><br>
+
+        <label for="rang1">Rang 1 :</label>
+        <input type="number" id="rang1" name="rang1" min="1" required><br><br>
+
+        <label for="effectif1">Effectif année 1 :</label>
+        <input type="number" id="effectif1" name="effectif1" min="1" required><br><br>
+
+        <label for="rang2">Rang 2 :</label>
+        <input type="number" id="rang2" name="rang2" min="1" required><br><br>
+
+        <label for="effectif2">Effectif année 2 :</label>
+        <input type="number" id="effectif2" name="effectif2" min="1" required><br><br>
+
+        <label for="anneeNaissance">Année de naissance :</label>
+        <input type="number" id="anneeNaissance" name="anneeNaissance" min="1900" max="2024" required><br><br>
+
+        <label for="anneeConcours">Année des concours :</label>
+        <input type="number" id="anneeConcours" name="anneeConcours" min="1900" max="2024" required><br><br>
+
+        <label for="moyenneBac">Moyenne du bac (sur 20) :</label>
+        <input type="number" id="moyenneBac" name="moyenneBac" min="0" max="20" step="0.1" required><br><br>
+        <label for="moyenneBac">Moyenne FR (sur 20) :</label>
+        <input type="number" id="FR" name="FR" min="0" max="20" step="0.1" required><br><br>
+        <label for="moyenneBac">Moyenne ENG (sur 20) :</label>
+        <input type="number" id="ENG" name="ENG" min="0" max="20" step="0.1" required><br><br>
+
+
+
+
+        <button type="button" onclick="calculateScore1()">Calculer Score 1</button><br><br>
+
+        <label for="score1Result">Score 1 Calculé :</label>
+        <input type="text" id="score1Result" name="score1Result" readonly>
+    </form>
+
+    <div id="details">
+        <p id="detailM">M :</p>
+        <p id="detailr1">r1 :</p>
+        <p id="detailr2">r2 :</p>
+        <p id="detailR1">R1 :</p>
+        <p id="detailR2">R2 :</p>
+        <p id="detailR">R :</p>
+        <p id="detailB1">B1 :</p>
+        <p id="detailB2">B2 :</p>
+        <p id="detailML">ML :</p>
+    </div>
+
+    <footer>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a><br>
+        Questions? Email us at <a href="mailto:zrougakarim@gmail.com">office@zrougakarim@gmail.com</a><br>
+        TermsFeed © All rights reserved.
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function calculateScore1() {
+            var moyenneAnnee1 = parseFloat($('#moyenneAnnee1').val());
+            var moyenneAnnee2 = parseFloat($('#moyenneAnnee2').val());
+            var mg = (moyenneAnnee1 + moyenneAnnee2) / 2;
+
+            var rang1 = parseInt($('#rang1').val());
+            var effectif1 = parseInt($('#effectif1').val());
+            var rang2 = parseInt($('#rang2').val());
+            var effectif2 = parseInt($('#effectif2').val());
+            var anneeNaissance = parseInt($('#anneeNaissance').val());
+            var anneeConcours = parseInt($('#anneeConcours').val());
+            var moyenneBac = parseFloat($('#moyenneBac').val());
+            var FR = parseFloat($('#FR').val());
+            var ENG = parseFloat($('#ENG').val());
+            // Calcul de M
+            var M = 0;
+            if (mg >= 15) {
+                M = 100;
+            } else if (mg > 10 && mg < 15) {
+                M = 20 * (mg - 10);
+            } else {
+                M = 0;
+            }
+
+            // Calcul de R
+            var ri1 = (rang1 - 1) / effectif1;
+            var ri2 = (rang2 - 1) / effectif2;
+
+            var R1 = (ri1 <= 0.3) ? (100 - ((700 * ri1) / 3)) : 0;
+            var R2 = (ri2 <= 0.3) ? (100 - ((700 * ri2) / 3)) : 0;
+
+            var R = 0.5 * (R1 + R2);
+
+
+            // Calcul de B1
+            var B1 = (anneeNaissance >= anneeConcours - 24) ? 5 : 0;
+
+            // Calcul de B2
+            var B2 = 0;
+            if (moyenneBac >= 16) {
+                B2 = 20;
+            } else if (moyenneBac >= 14) {
+                B2 = 15;
+            } else if (moyenneBac >= 12) {
+                B2 = 10;
+            } else if (moyenneBac >= 11) {
+                B2 = 5;
+            } else {
+                B2 = 0;
+            }
+
+            //Calcul Ml
+            var ML =(FR+ENG)/2
+
+            // Calcul du Score 1
+            var score1 = 0.2 * M + (1/4) * R +(2/3)*( B1 + B2);
+
+            $('#score1Result').val(score1.toFixed(3));
+
+            // Afficher les détails
+            $('#detailM').text('M : ' + M.toFixed(2));
+            $('#detailr1').text('r1 : ' + ri1.toFixed(2));
+            $('#detailr2').text('r2 : ' + ri2.toFixed(2));
+            $('#detailR1').text('R1 : ' + R1.toFixed(2));
+            $('#detailR2').text('R2 : ' + R2.toFixed(2));
+            $('#detailR').text('R : ' + R.toFixed(2));
+            $('#detailB1').text('B1 : ' + B1.toFixed(2));
+            $('#detailB2').text('B2 : ' + B2.toFixed(2));
+            $('#detailML').text('ML : ' + ML.toFixed(2));
+            // Afficher la section des détails
+            $('#details').show();
+        }
+    </script>
+</body>
+
+</html>
