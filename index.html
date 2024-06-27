@@ -123,9 +123,9 @@
 
 
 
-        <button type="button" onclick="calculateScore1()">Calculer Score 1</button><br><br>
+        <button type="button" onclick="calculateScore1()">Calculer Score A</button><br><br>
 
-        <label for="score1Result">Score 1 Calculé :</label>
+        <label for="score1Result">Score A Calculé :</label>
         <input type="text" id="score1Result" name="score1Result" readonly>
     </form>
 
@@ -142,8 +142,8 @@
     </div>
 
     <footer>
-        <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a><br>
-        Questions? Email us at <a href="mailto:zrougakarim@gmail.com">zrougakarim@gmail.com</a><br>
+        <a href="https://github.com/karimzrouga/">Privacy Policy</a> | <a href="https://github.com/karimzrouga/">Terms of Use</a><br>
+        Questions? Email us at <a href="mailto:zrougakarim@gmail.com">@zrougakarim@gmail.com</a><br> 2024
         TermsFeed © All rights reserved.
     </footer>
 
@@ -152,7 +152,7 @@
         function calculateScore1() {
             var moyenneAnnee1 = parseFloat($('#moyenneAnnee1').val());
             var moyenneAnnee2 = parseFloat($('#moyenneAnnee2').val());
-            var mg = (moyenneAnnee1 + moyenneAnnee2) / 2;
+           
 
             var rang1 = parseInt($('#rang1').val());
             var effectif1 = parseInt($('#effectif1').val());
@@ -164,6 +164,7 @@
             var FR = parseFloat($('#FR').val());
             var ENG = parseFloat($('#ENG').val());
             // Calcul de M
+            var mg = (moyenneAnnee1 + moyenneAnnee2) / 2;
             var M = 0;
             if (mg >= 15) {
                 M = 100;
@@ -204,7 +205,7 @@
             var ML =(FR+ENG)/2
 
             // Calcul du Score 1
-            var score1 = 0.2 * M + (1/4) * R +(2/3)*( B1 + B2);
+            var score1 = 0.2 * M + (1.4 /3)* R +(5/6)*ML +(2/3)*( B1 + B2);
 
             $('#score1Result').val(score1.toFixed(3));
 
